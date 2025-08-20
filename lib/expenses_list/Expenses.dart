@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/Expense.dart';
 import 'package:expense_tracker/expenses_list/Expenses_List.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'new_expense.dart';
+
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -37,7 +37,10 @@ class _Expenses extends State<Expenses> {
   ];
 
   void _addExpense(){
-    showModalBottomSheet(context: context, builder: (ctx) => NewExpense(onAddExpense: _addExpenses));
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context, builder: (ctx) => NewExpense(onAddExpense: _addExpenses));
+
   }
 
   void _addExpenses(Expense expense) {
@@ -46,9 +49,41 @@ class _Expenses extends State<Expenses> {
     });
   }
 
+  void removeExpense(Expense expense){
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Expense Deleted Successfully !!"),
+      duration: Duration(seconds: 3),
+      action: SnackBarAction(label: "Undo", onPressed: (){
+        setState(() {
+          _registeredExpenses.insert(expenseIndex,expense);}
+          );
+        },
+        ),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    Widget mainContent = Center(
+      child: Text("No Expenses Found. Start Adding Some!",style: GoogleFonts.poppins(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),)
+    );
+
+
+    if(_registeredExpenses.isNotEmpty){
+      mainContent = Expenses_List(expenses_list: _registeredExpenses,onRemove: removeExpense);
+    };
     return Scaffold(
       appBar: AppBar(
         title: Text("Expense Tracker",style: GoogleFonts.poppins(
@@ -69,7 +104,7 @@ class _Expenses extends State<Expenses> {
       body: Column(
         children: [
           // Text("Track Your Expenses..."),
-          Expanded(child: Expenses_List(expenses_list: _registeredExpenses)),
+          Expanded(child: mainContent),
         ],
       ),
     );
