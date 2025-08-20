@@ -37,11 +37,15 @@ class _Expenses extends State<Expenses> {
   ];
 
   void _addExpense(){
-    showModalBottomSheet(context: context, builder: (ctx) {
-      return NewExpense();
+    showModalBottomSheet(context: context, builder: (ctx) => NewExpense(onAddExpense: _addExpenses));
+  }
 
+  void _addExpenses(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +68,7 @@ class _Expenses extends State<Expenses> {
       ),
       body: Column(
         children: [
-          Text("Track Your Expenses..."),
+          // Text("Track Your Expenses..."),
           Expanded(child: Expenses_List(expenses_list: _registeredExpenses)),
         ],
       ),
