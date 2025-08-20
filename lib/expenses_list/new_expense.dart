@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:expense_tracker/models/Expense.dart';
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key});
 
@@ -10,10 +10,10 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpense extends State<NewExpense> {
-
   final enteredTitle = TextEditingController();
   final enteredAmount = TextEditingController();
 
+  DateTime? _selectedDate;
   @override
   void dispose() {
     enteredTitle.dispose();
@@ -21,12 +21,20 @@ class _NewExpense extends State<NewExpense> {
     super.dispose();
   }
 
-
-  void datePicker(){
+  void datePicker() async {
     final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1,now.month , now.day);
-    final lastDate = DateTime(now.year + 1,now.month , now.day);
-    showDatePicker(context: context, firstDate: firstDate, lastDate: lastDate,initialDate: now);
+    final firstDate = DateTime(now.year - 1, now.month, now.day);
+    final lastDate = DateTime(now.year + 1, now.month, now.day);
+    final pickedDate = await showDatePicker(
+      context: context,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      initialDate: now,
+    );
+
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -49,41 +57,46 @@ class _NewExpense extends State<NewExpense> {
               Expanded(
                 child: TextField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(label: Text("Amount"),prefixText: "\u20B9"),
+                  decoration: InputDecoration(
+                    label: Text("Amount"),
+                    prefixText: "\u20B9",
+                  ),
                   controller: enteredAmount,
                 ),
               ),
-              SizedBox(
-                width: 30,
-              ),
+              SizedBox(width: 30),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Selected Date"),
-                    IconButton(onPressed: datePicker, icon: Icon(Icons.calendar_month)),
+                    Text(_selectedDate == null ? "No Date Selected" : formatter.format(_selectedDate!)),
+                    IconButton(
+                      onPressed: datePicker,
+                      icon: Icon(Icons.calendar_month),
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
 
           Row(
             children: [
-              TextButton(onPressed: (){
-                Navigator.pop(context);
-              }, child: Text("Cancel")),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Cancel"),
+              ),
               ElevatedButton(
-                onPressed: (){
+                onPressed: () {
                   print(enteredTitle.text);
                   print(enteredAmount.text);
                 },
                 child: const Text("Save Expense"),
-              )
+              ),
             ],
           ),
-
-
         ],
       ),
     );
