@@ -5,7 +5,10 @@ import 'expenses_list/Expenses.dart';
 void main(){
   runApp(
        MaterialApp(
-        theme: ThemeData(useMaterial3: true , ),
+        theme: ThemeData().copyWith(
+          useMaterial3: true,
+          scaffoldBackgroundColor: Color.fromARGB(255, 220, 189, 250)
+        ),
         debugShowCheckedModeBanner: false,
     home: Expenses(),
   ));
