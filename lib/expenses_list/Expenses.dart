@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/Expense.dart';
 import 'package:expense_tracker/expenses_list/Expenses_List.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../main.dart';
 import 'new_expense.dart';
 
 
@@ -74,10 +75,8 @@ class _Expenses extends State<Expenses> {
   Widget build(BuildContext context) {
 
     Widget mainContent = Center(
-      child: Text("No Expenses Found. Start Adding Some!",style: GoogleFonts.poppins(
-        fontSize: 15,
-        fontWeight: FontWeight.bold,
-      ),)
+      child: Text("No Expenses Found. Start Adding Some!",
+          style: Theme.of(context).textTheme.titleLarge)
     );
 
 
@@ -88,10 +87,10 @@ class _Expenses extends State<Expenses> {
       appBar: AppBar(
         title: Text("Expense Tracker",style: GoogleFonts.poppins(
           fontSize: 25,
-          color: Colors.white,
+          color: Colors.white.withOpacity(0.4),
           fontWeight: FontWeight.bold,
         ),),
-        backgroundColor: Colors.purpleAccent,
+        // backgroundColor: Colors.purpleAccent,
         actions: [
           IconButton(
           icon: Icon(Icons.add),

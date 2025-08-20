@@ -134,10 +134,14 @@ class _NewExpense extends State<NewExpense> {
               DropdownButton<Category>(
                 value: selectedCategory,
                 items: Category.values
+
                     .map(
                       (item) => DropdownMenuItem(
                         value: item,
-                        child: Text(item.name.toUpperCase()),
+                        child: Text(item.name.toUpperCase(),style: TextStyle(
+                          color: Colors.black
+                        ),),
+
                       ),
                     )
                     .toList(),
