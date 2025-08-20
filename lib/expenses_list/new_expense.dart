@@ -11,11 +11,8 @@ class NewExpense extends StatefulWidget {
 
 class _NewExpense extends State<NewExpense> {
 
-  var enteredTitle = "";
+  var enteredTitle = TextEditingController();
 
-  void _saveInput(String input){
-    enteredTitle = input;
-  }
   @override
   Widget build(BuildContext context) {
     return Padding(
