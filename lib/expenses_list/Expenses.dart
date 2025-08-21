@@ -28,7 +28,7 @@ class _Expenses extends State<Expenses> {
       title: "Movie",
       amount: 30.00,
       date: DateTime.now(),
-      category: Category.entertainment,
+      category: Category.leisure,
     ),
     Expense(
       title: "Travel",
@@ -89,6 +89,7 @@ class _Expenses extends State<Expenses> {
     };
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text("Expense Tracker",style: GoogleFonts.poppins(
           fontSize: 25,
           color: Colors.white.withOpacity(0.4),

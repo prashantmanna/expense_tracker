@@ -11,7 +11,7 @@ class Chart extends StatelessWidget {
   List<ExpenseBucket> get buckets {
     return [
       ExpenseBucket.forCategory(expenses, Category.food),
-      ExpenseBucket.forCategory(expenses, Category.entertainment),
+      ExpenseBucket.forCategory(expenses, Category.leisure),
       ExpenseBucket.forCategory(expenses, Category.travel),
       ExpenseBucket.forCategory(expenses, Category.work),
     ];
@@ -76,20 +76,32 @@ class Chart extends StatelessWidget {
                   (bucket) => Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Icon(
-                    CategoryIcons[bucket.category],
-                    color: isDarkMode
-                        ? Theme.of(context).colorScheme.secondary
-                        : Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withOpacity(0.7),
+                  child: Column(
+                    children: [
+                      Icon(
+                        CategoryIcons[bucket.category],
+                        color: isDarkMode
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context).colorScheme.primary.withOpacity(0.7),
+                      ),
+                      const SizedBox(height: 4), // space between icon and text
+                      Text(
+                        bucket.category.name.toUpperCase(), // category name
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: isDarkMode
+                              ? Colors.white
+                              : Colors.black87, // readable in both themes
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             )
                 .toList(),
           ),
+
         ],
       ),
     );

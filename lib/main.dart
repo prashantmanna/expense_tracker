@@ -31,10 +31,10 @@ void main() {
         theme: ThemeData().copyWith(
             useMaterial3: true,
             scaffoldBackgroundColor: Color.fromARGB(255, 220, 189, 240),
-            inputDecorationTheme: const InputDecorationTheme(
-              labelStyle: TextStyle(color: Colors.black),
-              counterStyle: TextStyle(color: Colors.black),
-            ),
+            // inputDecorationTheme: const InputDecorationTheme(
+            //   labelStyle: TextStyle(color: Colors.black),
+            //   counterStyle: TextStyle(color: Colors.black),
+            // ),
             colorScheme: kColorScheme,
             appBarTheme: AppBarTheme().copyWith(
               backgroundColor: kColorScheme.onPrimaryContainer,
@@ -49,11 +49,11 @@ void main() {
                 backgroundColor: kColorScheme.primaryContainer,
               ),
             ),
-            textTheme: TextTheme(
-                bodyMedium: TextStyle(
-                    color: Colors.black
-                )
-            )
+            // textTheme: TextTheme(
+            //     bodyMedium: TextStyle(
+            //         color: Colors.black
+            //     )
+            // )
         ),
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
