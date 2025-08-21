@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'expenses_list/Expenses.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
@@ -10,49 +10,56 @@ var darkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
-  runApp(
-    MaterialApp(
-      darkTheme: ThemeData.dark().copyWith(
-        colorScheme: darkColorScheme,
-        useMaterial3: true,
-        cardTheme: CardThemeData().copyWith(
-          color: Colors.purpleAccent,
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]).then((fn){
+    runApp(
+      MaterialApp(
+        darkTheme: ThemeData.dark().copyWith(
+          colorScheme: darkColorScheme,
+          useMaterial3: true,
+          cardTheme: CardThemeData().copyWith(
+            color: Colors.purpleAccent,
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          ),
+          appBarTheme: AppBarTheme().copyWith(
+            backgroundColor: darkColorScheme.onPrimaryContainer,
+            foregroundColor: darkColorScheme.primaryContainer,
+          ),
         ),
-        appBarTheme: AppBarTheme().copyWith(
-          backgroundColor: darkColorScheme.onPrimaryContainer,
-          foregroundColor: darkColorScheme.primaryContainer,
+        theme: ThemeData().copyWith(
+            useMaterial3: true,
+            scaffoldBackgroundColor: Color.fromARGB(255, 220, 189, 240),
+            inputDecorationTheme: const InputDecorationTheme(
+              labelStyle: TextStyle(color: Colors.black),
+              counterStyle: TextStyle(color: Colors.black),
+            ),
+            colorScheme: kColorScheme,
+            appBarTheme: AppBarTheme().copyWith(
+              backgroundColor: kColorScheme.onPrimaryContainer,
+              foregroundColor: kColorScheme.primaryContainer,
+            ),
+            cardTheme: CardThemeData().copyWith(
+              color: Colors.purpleAccent,
+              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: kColorScheme.primaryContainer,
+              ),
+            ),
+            textTheme: TextTheme(
+                bodyMedium: TextStyle(
+                    color: Colors.black
+                )
+            )
         ),
+        themeMode: ThemeMode.system,
+        debugShowCheckedModeBanner: false,
+        home: Expenses(),
       ),
-      theme: ThemeData().copyWith(
-        useMaterial3: true,
-        scaffoldBackgroundColor: Color.fromARGB(255, 220, 189, 240),
-        colorScheme: kColorScheme,
-        appBarTheme: AppBarTheme().copyWith(
-          backgroundColor: kColorScheme.onPrimaryContainer,
-          foregroundColor: kColorScheme.primaryContainer,
-        ),
-        cardTheme: CardThemeData().copyWith(
-          color: Colors.purpleAccent,
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kColorScheme.primaryContainer,
-          ),
-        ),
-        textTheme: TextTheme().copyWith(
-          titleLarge: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: kColorScheme.onSecondaryContainer,
-            fontSize: 16,
-          ),
+    );
+  });
 
-        ),
-      ),
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
-      home: Expenses(),
-    ),
-  );
 }

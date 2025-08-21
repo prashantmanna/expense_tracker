@@ -93,7 +93,17 @@ class _NewExpense extends State<NewExpense> {
             maxLength: 50,
             controller: enteredTitle,
             keyboardType: TextInputType.text,
-            decoration: InputDecoration(label: Text("Title")),
+            decoration: const InputDecoration(
+              labelText: "Title",
+              labelStyle: TextStyle(color: Colors.black), // label color
+              counterStyle: TextStyle(color: Colors.black), // counter (8/50) color
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.purple),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.purpleAccent),
+              ),
+            ),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -103,7 +113,7 @@ class _NewExpense extends State<NewExpense> {
                 child: TextField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    label: Text("Amount"),
+                    label: Text("Amount",style: TextStyle(color: Colors.black),),
                     prefixText: "\u20B9",
                   ),
                   controller: enteredAmount,
